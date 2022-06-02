@@ -1,0 +1,27 @@
+{% extends "base.html"%}
+
+{% block content %}
+<h1>Character list</h1>
+<section>
+    <form action="/characters" method="POST">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+        <label for="HP">HP</label>
+        <input type="number" name="HP" id="HP">
+        <label for="AC">AC</label>
+        <input type="number" name="AC" id="AC">
+        <label for="STR">STR</label>
+        <input type="number" name="STR" id="STR">
+        <label for="DEX">DEX</label>
+        <input type="number" name="DEX" id="DEX">
+        <input type="submit" value="add new">
+    </form>
+</section>
+<section>
+    {% for character in character_list%}
+    <div>
+        {{ character.name}}
+    </div>
+    {% endfor %}
+</section>
+{% endblock %}
