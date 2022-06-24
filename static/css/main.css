@@ -1,7 +1,15 @@
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 100%;
+    /* width: 100%; */
+}
+
+input[type=number] {
+    width: 10mm
+}
+
+input[type=text] {
+    width: 20mm
 }
 
 td,
@@ -13,4 +21,8 @@ th {
 
 tr:nth-child(even) {
     background-color: #dddddd;
+}
+
+body {
+    background-color: white;
 }

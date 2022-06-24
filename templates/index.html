@@ -1,51 +1,7 @@
 {% extends "base.html"%}
 
 {% block content %}
-<h1>Character list</h1>
 <section>
-    <form action="/characters" method="POST">
-        <p>
-            <input type="text" name="name" id="name">
-            <label for="name">Name</label>
-        </p>
-        <p>
-            <input type="number" name="HP" id="HP">
-            <label for="HP">HP</label>
-        </p>
-        <p>
-            <input type="number" name="AC" id="AC">
-            <label for="AC" name="AC">AC</label>
-        </p>
-        <input type="submit" value="add new">
-    </form>
-</section>
-<section>
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Hit Points</th>
-            <th>Armor Class</th>
-            <th colspan="2">Actions</th>
-        </tr>
-        {% for character in character_list%}
-        <tr>
-            <td>{{ character.name}}</td>
-            <td>{{ character.HP}}</td>
-            <td>{{ character.AC}}</td>
-            <td>
-                <form action="/character/remove_HP/{{character.name}}" methods="POST">
-                    <input type="submit" value="-1 HP">
-                </form>
-            </td>
-            <td>
-                <form action="/character/add_HP/{{character.name}}" methods="POST">
-                    <input type="submit" value="+1 HP">
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-    <div>
-    </div>
+    <h1>All Characters</h1>
 </section>
 {% endblock %}
