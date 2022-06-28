@@ -1,7 +1,7 @@
 import random
 import math
 class Character():
-    def __init__(self, name, HP, AC, strength, dexterity, constitution, intelligence, wisdom, charisma, character_class, race, region):
+    def __init__(self, name, HP, AC, strength, dexterity, constitution, intelligence, wisdom, charisma, character_class, race, region, in_encounter = False, initiative = 0, id = None):
         self.name = name
         self.HP = HP
         self.AC = AC
@@ -14,6 +14,9 @@ class Character():
         self.character_class = character_class
         self.race = race
         self.region = region
+        self.in_encounter = in_encounter
+        self.initiative = initiative
+        self.id = id
 
     ## ALTER BY ONE TESTS ##
     def remove_1_HP(self):
@@ -33,7 +36,7 @@ class Character():
     def remove_amount_AC(self, amount):
         self.AC -= amount
     def add_amount_AC(self, amount):
-        self.AC -= amount
+        self.AC += amount
     
     ## GAME MECHANIC TESTS ##
     def roll(self, size):

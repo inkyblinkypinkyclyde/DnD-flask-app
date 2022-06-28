@@ -2,7 +2,7 @@
 
 {% block content %}
 <section>
-    <h1>All Characters</h1>
+    <h1>Lobby</h1>
 </section>
 <section>
     <table>
@@ -19,7 +19,7 @@
             <th>Class</th>
             <th>Race</th>
             <th>Region</th>
-            <th><a href="/lobby">Lobby</a></th>
+            <th><a href="/encounter">To Encounter</a></th>
             <th>Actions</th>
         </tr>
         {%for character in characters%}
@@ -37,33 +37,13 @@
             <td>{{character.race}}</td>
             <td>{{character.region}}</td>
             <td>
-                {% if character.in_encounter == True%}
-                READY!!
-                {% else %}
-                <a href="create_new_encounter/{{character.id}}">Add</a>
-                {% endif %}
+                <form action="update_initiative">
+                    <input type="number" placeholder="{{character.roll(20)}}">
+                </form>
             </td>
             <td><a href="">edit</a> <a href="{{character.id}}/delete">delete</a></td>
         </tr>
         {%endfor%}
-        <tr>
-            <form action="/characters" method="post">
-                <td><input type="text" name="name"></td>
-                <td><input type="number" name="hp" id="" size="4"></td>
-                <td><input type="number" name="ac" id=""></td>
-                <td><input type="number" name="strength" id=""></td>
-                <td><input type="number" name="dexterity" id=""></td>
-                <td><input type="number" name="constitution" id=""></td>
-                <td><input type="number" name="intelligence" id=""></td>
-                <td><input type="number" name="wisdom" id=""></td>
-                <td><input type="number" name="charisma" id=""></td>
-                <td><input type="text" name="character_class" id=""></td>
-                <td><input type="text" name="race" id=""></td>
-                <td><input type="text" name="region" id=""></td>
-                <td></td>
-                <td><button type="submit">Add</button></td>
-            </form>
-        </tr>
     </table>
 </section>
 {% endblock %}

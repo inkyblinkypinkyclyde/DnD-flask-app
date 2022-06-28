@@ -2,8 +2,8 @@ from db.run_sql import run_sql
 from models.character import Character
 
 def save(character):
-    sql = "INSERT INTO characters (name, HP, AC, strength, dexterity, constitution, intelligence, wisdom, charisma, character_class, race, region) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING *"
-    values = [character.name, character.HP, character.AC, character.strength, character.dexterity, character.constitution, character.intelligence, character.wisdom, character.charisma, character.character_class, character.race, character.region]
+    sql = "INSERT INTO characters (name, HP, AC, strength, dexterity, constitution, intelligence, wisdom, charisma, character_class, race, region, in_encounter) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING *"
+    values = [character.name, character.HP, character.AC, character.strength, character.dexterity, character.constitution, character.intelligence, character.wisdom, character.charisma, character.character_class, character.race, character.region, character.in_encounter]
     results = run_sql(sql, values)
     id = results[0]['id']
     character.id = id
@@ -11,10 +11,10 @@ def save(character):
 
 def select_all():
     characters = []
-    sql = "SELECT * FROM characters"
+    sql = "SELECT * FROM characters ORDER BY name"
     results = run_sql(sql)
     for row in results:
-        character = Character(row['name'], row['hp'], row['ac'], row['strength'], row['dexterity'], row['constitution'], row['intelligence'], row['wisdom'], row['charisma'], row['character_class'], row['race'], row['region'])
+        character = Character(row['name'], row['hp'], row['ac'], row['strength'], row['dexterity'], row['constitution'], row['intelligence'], row['wisdom'], row['charisma'], row['character_class'], row['race'], row['region'], row['in_encounter'], row['initiative'], row['id'])
         characters.append(character)
     return characters
 
@@ -37,6 +37,20 @@ def delete(id):
     run_sql(sql, values)
 
 def update(character):
-    sql = 'UPDATE transactions SET (name, HP, AC, strength, dexterity, constitution, intelligence, wisdom, charisma, character_class, race, region) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) WHERE id = %s'
-    values = [character.name, character.HP, character.AC, character.strength, character.dexterity, character.constitution, character.intelligence, character.wisdom, character.charisma, character.character_class, character.race, character.region, character.id]
+    sql = 'UPDATE characters SET (name, HP, AC, strength, dexterity, constitution, intelligence, wisdom, charisma, character_class, race, region, in_encounter) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) WHERE id = %s'
+    values = [character.name, character.HP, character.AC, character.strength, character.dexterity, character.constitution, character.intelligence, character.wisdom, character.charisma, character.character_class, character.race, character.region, character.initiative, character.id]
     run_sql(sql, values)
+
+def add_to_encounter(id):
+    sql = 'UPDATE characters SET in_encounter = %s WHERE id = %s'
+    values = ['TRUE', id]
+    run_sql(sql, values)
+
+def select_all_ready():
+    characters = []
+    sql = "SELECT * FROM characters WHERE in_encounter = TRUE ORDER BY name"
+    results = run_sql(sql)
+    for row in results:
+        character = Character(row['name'], row['hp'], row['ac'], row['strength'], row['dexterity'], row['constitution'], row['intelligence'], row['wisdom'], row['charisma'], row['character_class'], row['race'], row['region'], row['in_encounter'], row['id'])
+        characters.append(character)
+    return characters

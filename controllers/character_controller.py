@@ -32,3 +32,15 @@ def new_character():
     character = Character(name, HP, AC, strength, dexterity, constitution, intelligence, wisdom, charisma, character_class, race, region)
     character_repository.save(character)
     return redirect('/characters')
+
+
+@characters_blueprint.route('/create_new_encounter/<id>')
+def add_to_encounter(id):
+    character_repository.add_to_encounter(id)
+    # breakpoint()
+    return redirect('/characters')
+
+@characters_blueprint.route('/lobby')
+def all_characters_ready():
+    characters = character_repository.select_all_ready()
+    return render_template('lobby.html', title="All Characters", characters = characters)

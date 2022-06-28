@@ -13,5 +13,7 @@ CREATE TABLE characters(
     charisma INT,
     character_class VARCHAR(255),
     race VARCHAR(255),
-    region VARCHAR(255)
-);
+    region VARCHAR(255),
+    in_encounter BOOLEAN,
+    initiative INT
+)
