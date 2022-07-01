@@ -38,9 +38,9 @@
             <td>{{character.region}}</td>
             <td>
                 {% if character.in_encounter == True%}
-                READY!!
+                <a href="remove_from_encounter/{{character.id}}">Remove</a>
                 {% else %}
-                <a href="create_new_encounter/{{character.id}}">Add</a>
+                <a href="add_to_encounter/{{character.id}}">Add</a>
                 {% endif %}
             </td>
             <td><a href="">edit</a> <a href="{{character.id}}/delete">delete</a></td>

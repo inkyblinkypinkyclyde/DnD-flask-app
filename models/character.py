@@ -1,7 +1,24 @@
 import random
 import math
 class Character():
-    def __init__(self, name, HP, AC, strength, dexterity, constitution, intelligence, wisdom, charisma, character_class, race, region, in_encounter = False, initiative = 0, id = None):
+    def __init__(
+        self,
+        name,
+        HP,
+        AC,
+        strength,
+        dexterity,
+        constitution,
+        intelligence,
+        wisdom,
+        charisma,
+        character_class,
+        race,
+        region,
+        in_encounter = False,
+        initiative = 0,
+        id = None
+        ):
         self.name = name
         self.HP = HP
         self.AC = AC

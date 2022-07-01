@@ -1,9 +1,3 @@
-from audioop import ratecv
-from crypt import methods
-from ctypes.wintypes import HPALETTE
-from logging import raiseExceptions
-from readline import set_history_length
-from unicodedata import name
 from flask import render_template, request, redirect, Blueprint
 from models.character import *
 import repositories.character_repository as character_repository
@@ -34,13 +28,33 @@ def new_character():
     return redirect('/characters')
 
 
-@characters_blueprint.route('/create_new_encounter/<id>')
+
+@characters_blueprint.route('/add_to_encounter/<id>')
 def add_to_encounter(id):
     character_repository.add_to_encounter(id)
-    # breakpoint()
+    return redirect('/characters')
+
+@characters_blueprint.route('/remove_from_encounter/<id>')
+def remove_from_encounter(id):
+    character_repository.remove_from_encounter(id)
     return redirect('/characters')
 
 @characters_blueprint.route('/lobby')
 def all_characters_ready():
     characters = character_repository.select_all_ready()
     return render_template('lobby.html', title="All Characters", characters = characters)
+
+@characters_blueprint.route('/update_initiative', methods=['POST'])
+def update_initiative():
+    characters = character_repository.select_all_ready()
+    for character in characters:
+        input_name = character.id
+        initiative = request.form[str(input_name)]
+        print(f'The character is {character.name} and their current initiative is {character.initiative} it is being updated to {initiative}')
+        character_repository.update_initiative(str(character.id), initiative)
+    return redirect('/encounter')
+
+@characters_blueprint.route('/encounter')
+def encounter(): 
+    characters = character_repository.select_all_ready()
+    return render_template('encounter.html', characters=characters)

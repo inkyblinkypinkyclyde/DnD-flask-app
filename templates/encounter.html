@@ -1,0 +1,46 @@
+{% extends "base.html"%}
+
+{% block content %}
+<section>
+    <h1>Encounter</h1>
+</section>
+<section>
+    <form action="">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th colspan="5">Stats</th>
+                <th colspan="2">Actions</th>
+
+
+            </tr>
+            <form action="">
+                {% for character in characters%}
+                <tr>
+                    <td rowspan="2">{{character.name}}</td>
+                    <td>HP: {{character.HP}}</td>
+                    <td><b>STR: {{character.ability_modifier(character.strength)}}</b>({{character.strength}})</td>
+                    <td><b>CON: {{character.ability_modifier(character.constitution)}}</b>({{character.constitution}})
+                    </td>
+                    <td><b>WIS: {{character.ability_modifier(character.wisdom)}}</b>({{character.wisdom}})</td>
+                    <td>{{character.race}}</td>
+                    <td>weapon dropdown</td>
+                    <td>victim dropdown</td>
+
+                </tr>
+                <tr>
+                    <td>AC: {{character.AC}}</td>
+                    <td><b>DEX: {{character.ability_modifier(character.dexterity)}}</b>({{character.dexterity}})</td>
+                    <td><b>INT: {{character.ability_modifier(character.intelligence)}}</b>({{character.intelligence}})
+                    </td>
+                    <td><b>CHA: {{character.ability_modifier(character.charisma)}}</b>({{character.charisma}})</td>
+                    <td>{{character.character_class}}</td>
+                    <td>spell dropdown</td>
+                    <td><input type="submit" value="Attack"></td>
+                </tr>
+            </form>
+            {%endfor%}
+        </table>
+    </form>
+</section>
+{% endblock %}

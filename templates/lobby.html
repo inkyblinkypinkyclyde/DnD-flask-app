@@ -1,49 +1,46 @@
 {% extends "base.html"%}
-
 {% block content %}
 <section>
     <h1>Lobby</h1>
 </section>
 <section>
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>HP</th>
-            <th>AC</th>
-            <th>Str</th>
-            <th>Dex</th>
-            <th>Con</th>
-            <th>Int</th>
-            <th>Wis</th>
-            <th>Cha</th>
-            <th>Class</th>
-            <th>Race</th>
-            <th>Region</th>
-            <th><a href="/encounter">To Encounter</a></th>
-            <th>Actions</th>
-        </tr>
-        {%for character in characters%}
-        <tr>
-            <td>{{character.name}}</td>
-            <td>{{character.HP}}</td>
-            <td>{{character.AC}}</td>
-            <td><b>{{character.ability_modifier(character.strength)}}</b>({{character.strength}})</td>
-            <td><b>{{character.ability_modifier(character.dexterity)}}</b>({{character.dexterity}})</td>
-            <td><b>{{character.ability_modifier(character.constitution)}}</b>({{character.constitution}})</td>
-            <td><b>{{character.ability_modifier(character.intelligence)}}</b>({{character.intelligence}})</td>
-            <td><b>{{character.ability_modifier(character.wisdom)}}</b>({{character.wisdom}})</td>
-            <td><b>{{character.ability_modifier(character.charisma)}}</b>({{character.charisma}})</td>
-            <td>{{character.character_class}}</td>
-            <td>{{character.race}}</td>
-            <td>{{character.region}}</td>
-            <td>
-                <form action="update_initiative">
-                    <input type="number" placeholder="{{character.roll(20)}}">
-                </form>
-            </td>
-            <td><a href="">edit</a> <a href="{{character.id}}/delete">delete</a></td>
-        </tr>
-        {%endfor%}
-    </table>
+    <form action="update_initiative" method="post">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>HP</th>
+                <th>AC</th>
+                <th>Str</th>
+                <th>Dex</th>
+                <th>Con</th>
+                <th>Int</th>
+                <th>Wis</th>
+                <th>Cha</th>
+                <th>Class</th>
+                <th>Race</th>
+                <th>Region</th>
+                <th><input type="submit"></th>
+            </tr>
+            {%for character in characters%}
+            <tr>
+                <td>{{character.name}}</td>
+                <td>{{character.HP}}</td>
+                <td>{{character.AC}}</td>
+                <td><b>{{character.ability_modifier(character.strength)}}</b>({{character.strength}})</td>
+                <td><b>{{character.ability_modifier(character.dexterity)}}</b>({{character.dexterity}})</td>
+                <td><b>{{character.ability_modifier(character.constitution)}}</b>({{character.constitution}})</td>
+                <td><b>{{character.ability_modifier(character.intelligence)}}</b>({{character.intelligence}})</td>
+                <td><b>{{character.ability_modifier(character.wisdom)}}</b>({{character.wisdom}})</td>
+                <td><b>{{character.ability_modifier(character.charisma)}}</b>({{character.charisma}})</td>
+                <td>{{character.character_class}}</td>
+                <td>{{character.race}}</td>
+                <td>{{character.region}}</td>
+                <td>
+                    <input type="number" value="{{character.roll(20)}}" name="{{character.id}}">
+                </td>
+            </tr>
+            {%endfor%}
+        </table>
+    </form>
 </section>
 {% endblock %}
