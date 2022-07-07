@@ -25,7 +25,7 @@
         {%for character in characters%}
         <tr>
             <td>{{character.name}}</td>
-            <td>{{character.HP}}</td>
+            <td>{{character.HP}}/{{character.max_HP}}</td>
             <td>{{character.AC}}</td>
             <td><b>{{character.ability_modifier(character.strength)}}</b>({{character.strength}})</td>
             <td><b>{{character.ability_modifier(character.dexterity)}}</b>({{character.dexterity}})</td>
@@ -43,7 +43,7 @@
                 <a href="add_to_encounter/{{character.id}}">Add</a>
                 {% endif %}
             </td>
-            <td><a href="">edit</a> <a href="{{character.id}}/delete">delete</a></td>
+            <td><a href="{{character.id}}/edit">edit</a> <a href="characters/{{character.id}}/delete">delete</a></td>
         </tr>
         {%endfor%}
         <tr>

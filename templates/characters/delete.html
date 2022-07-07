@@ -1,0 +1,9 @@
+{% extends "base.html"%}
+
+{% block content %}
+
+Are you sure you want to delete {{character.name}}
+<a href="/characters/{{character.id}}/remove">Yes, delete</a>
+<a href="/characters">No, don't delete</a>
+
+{% endblock %}

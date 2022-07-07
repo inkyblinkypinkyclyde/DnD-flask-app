@@ -5,7 +5,7 @@ table {
 }
 
 input[type=number] {
-    width: 10mm
+    width: 10mm;
 }
 
 input[type=text] {
@@ -19,9 +19,9 @@ th {
     padding: 8px;
 }
 
-tr:nth-child(even) {
+/* tr:nth-child(even) {
     background-color: #dddddd;
-}
+} */
 
 body {
     background-color: white;

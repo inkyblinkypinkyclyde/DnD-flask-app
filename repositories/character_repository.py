@@ -2,9 +2,10 @@ from db.run_sql import run_sql
 from models.character import Character
 
 def save(character):
-    sql = "INSERT INTO characters (name, HP, AC, strength, dexterity, constitution, intelligence, wisdom, charisma, character_class, race, region, in_encounter, initiative) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING *"
+    sql = "INSERT INTO characters (name, max_HP, HP, AC, strength, dexterity, constitution, intelligence, wisdom, charisma, character_class, race, region, in_encounter, initiative) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING *"
     values = [
         character.name,
+        character.max_HP,
         character.HP,
         character.AC,
         character.strength,
@@ -20,10 +21,9 @@ def save(character):
         character.initiative
         ]
     results = run_sql(sql, values)
+    # breakpoint()
     id = results[0]['id']
     character.id = id
-    # breakpoint()
-
     return character
 
 def select_all():
@@ -33,6 +33,7 @@ def select_all():
     for row in results:
         character = Character(
             row['name'],
+            row['max_hp'],
             row['hp'],
             row['ac'],
             row['strength'],
@@ -59,6 +60,7 @@ def select(id):
     if result is not None:
         character = Character(
             result['name'],
+            result['max_hp'],
             result['hp'],
             result['ac'],
             result['strength'],
@@ -85,9 +87,10 @@ def delete(id):
     run_sql(sql, values)
 
 def update(character):
-    sql = 'UPDATE characters SET (name, HP, AC, strength, dexterity, constitution, intelligence, wisdom, charisma, character_class, race, region, in_encounter) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) WHERE id = %s'
+    sql = 'UPDATE characters SET (name, max_HP, HP, AC, strength, dexterity, constitution, intelligence, wisdom, charisma, character_class, race, region, in_encounter, initiative) = (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) WHERE id = %s'
     values = [
         character.name,
+        character.max_HP,
         character.HP,
         character.AC,
         character.strength,
@@ -99,6 +102,7 @@ def update(character):
         character.character_class,
         character.race,
         character.region,
+        character.in_encounter,
         character.initiative,
         character.id
         ]
@@ -116,11 +120,12 @@ def remove_from_encounter(id):
 
 def select_all_ready():
     characters = []
-    sql = "SELECT * FROM characters WHERE in_encounter = TRUE ORDER BY initiative"
+    sql = "SELECT * FROM characters WHERE in_encounter = TRUE ORDER BY initiative DESC"
     results = run_sql(sql)
     for row in results:
         character = Character(
             row['name'],
+            row['max_hp'],
             row['hp'],
             row['ac'],
             row['strength'],
@@ -146,4 +151,9 @@ def update_initiative(id, initiative):
     sql = "UPDATE characters SET initiative = %s WHERE id = %s"
     values = [initiative, id]
     print(f'the sql being passed in is {sql} and the initiative is {initiative} and the id is {id}')
+    run_sql(sql, values)
+
+def change_hp(id, amount):
+    sql = "UPDATE characters SET hp = %s WHERE id = %s"
+    values = [amount, id]
     run_sql(sql, values)

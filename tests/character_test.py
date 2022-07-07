@@ -4,8 +4,8 @@ from models.character import Character
 class TestCharacter(unittest.TestCase):
     
     def setUp(self):
-        self.pippin = Character("Peregrin Took", 10, 15, 10, 10, 10, 10, 10, 10, 'Rogue', 'Halfling', 'The Shire')
-        self.Angmar = Character("The Witch King Angmar", 200, 20, 20, 20, 20, 20, 20, 20, 'Numenorean', 'Paladin', 'Minas Morgul')
+        self.pippin = Character("Peregrin Took", 10, 10, 1, 10, 10, 10, 10, 10, 10, 'Rogue', 'Halfling', 'The Shire')
+        self.Angmar = Character("The Witch King Angmar", 200, 200, 20, 20, 20, 20, 20, 20, 20, 'Numenorean', 'Paladin', 'Minas Morgul')
     
     def test_character_has_name(self):
         self.assertEqual("Peregrin Took", self.pippin.name)
@@ -41,3 +41,9 @@ class TestCharacter(unittest.TestCase):
     
     def test_character_has_max_carry_capacity(self):
         self.assertEqual(150, self.pippin.carry_capacity())
+    
+    def test_character_can_return_take_attack_roll_false(self):
+        self.assertEqual(False, self.pippin.attack_roll(self.Angmar))
+
+    def test_character_can_return_take_attack_roll_true(self):
+        self.assertEqual(True, self.Angmar.attack_roll(self.pippin))

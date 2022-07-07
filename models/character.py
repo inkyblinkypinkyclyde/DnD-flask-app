@@ -4,6 +4,7 @@ class Character():
     def __init__(
         self,
         name,
+        max_hp,
         HP,
         AC,
         strength,
@@ -20,6 +21,7 @@ class Character():
         id = None
         ):
         self.name = name
+        self.max_HP = max_hp
         self.HP = HP
         self.AC = AC
         self.strength = strength
@@ -57,8 +59,27 @@ class Character():
     
     ## GAME MECHANIC TESTS ##
     def roll(self, size):
-        return random.randint(1, size)
+        return random.randint(1, int(size))
 
+    def attack_roll(self, victim):
+        roll = self.roll(20)
+        if (roll + self.strength) > victim.AC:
+            return True
+        else:
+            return False
+
+    def calculate_hp_change(self, d_size, d_number):
+        roll = self.roll(d_size)
+        total = int(roll) * int(d_number)
+        return total
+
+    def carry_out_attack(self, d_size, d_number, victim):
+        if self.attack_roll(victim):
+            return self.calculate_hp_change(d_size, d_number)
+        else:
+            return 0
+
+        
     def ability_modifier(self, ability):
         ability_modifier = math.floor((ability - 10)/2)
         return ability_modifier
