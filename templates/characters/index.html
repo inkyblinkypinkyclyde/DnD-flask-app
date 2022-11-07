@@ -22,6 +22,24 @@
             <th><a href="/lobby">Lobby</a></th>
             <th>Actions</th>
         </tr>
+        <tr>
+            <form action="/characters" method="post">
+                <td><input type="text" name="name" autofocus></td>
+                <td><input value="10" type="number" name="hp" id="" size="4"></td>
+                <td><input value="10" type="number" name="ac" id=""></td>
+                <td><input value="10" type="number" name="strength" id=""></td>
+                <td><input value="10" type="number" name="dexterity" id=""></td>
+                <td><input value="10" type="number" name="constitution" id=""></td>
+                <td><input value="10" type="number" name="intelligence" id=""></td>
+                <td><input value="10" type="number" name="wisdom" id=""></td>
+                <td><input value="10" type="number" name="charisma" id=""></td>
+                <td><input type="text" name="character_class" id=""></td>
+                <td><input type="text" name="race" id=""></td>
+                <td><input type="text" name="region" id=""></td>
+                <td></td>
+                <td><button type="submit">Add</button></td>
+            </form>
+        </tr>
         {%for character in characters%}
         <tr>
             <td>{{character.name}}</td>
@@ -38,32 +56,14 @@
             <td>{{character.region}}</td>
             <td>
                 {% if character.in_encounter == True%}
-                <a href="remove_from_encounter/{{character.id}}">Remove</a>
+                <a href="remove_from_encounter/{{character.id}}">REMOVE</a>
                 {% else %}
-                <a href="add_to_encounter/{{character.id}}">Add</a>
+                <a href="add_to_encounter/{{character.id}}">ADD</a>
                 {% endif %}
             </td>
-            <td><a href="{{character.id}}/edit">edit</a> <a href="characters/{{character.id}}/delete">delete</a></td>
+            <td><a href="{{character.id}}/edit">EDIT</a> <a href="characters/{{character.id}}/delete">DELETE</a></td>
         </tr>
         {%endfor%}
-        <tr>
-            <form action="/characters" method="post">
-                <td><input type="text" name="name"></td>
-                <td><input type="number" name="hp" id="" size="4"></td>
-                <td><input type="number" name="ac" id=""></td>
-                <td><input type="number" name="strength" id=""></td>
-                <td><input type="number" name="dexterity" id=""></td>
-                <td><input type="number" name="constitution" id=""></td>
-                <td><input type="number" name="intelligence" id=""></td>
-                <td><input type="number" name="wisdom" id=""></td>
-                <td><input type="number" name="charisma" id=""></td>
-                <td><input type="text" name="character_class" id=""></td>
-                <td><input type="text" name="race" id=""></td>
-                <td><input type="text" name="region" id=""></td>
-                <td></td>
-                <td><button type="submit">Add</button></td>
-            </form>
-        </tr>
     </table>
 </section>
 {% endblock %}

@@ -1,7 +1,30 @@
-table {
+body {
     font-family: arial, sans-serif;
+    background-color: blanchedalmond;
+}
+
+table {
     border-collapse: collapse;
     /* width: 100%; */
+}
+
+ul {
+    display: flex;
+}
+
+li {
+    list-style: none;
+    padding: .5em;
+    margin: .25em;
+    background-color: coral;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    padding: .5em;
+    margin: .25em;
+    /* background-color: coral; */
 }
 
 input[type=number] {
@@ -19,10 +42,19 @@ th {
     padding: 8px;
 }
 
-/* tr:nth-child(even) {
-    background-color: #dddddd;
+/* #encounter-section {
+    display: grid;
 } */
 
-body {
-    background-color: white;
+/* #encounter-section>table {
+    grid-template-columns: repeat(2);
+} */
+
+
+#left-table {
+    float: left;
+}
+
+#right-table {
+    float: right;
 }
