@@ -35,6 +35,8 @@ Or run the app straight away without test data by entering:
 python app.py
 ```
 
+To start viewing the app go to http://127.0.0.1:5001/characters
+
 
 ## Technologies used
 * Python (v3.9.12)
